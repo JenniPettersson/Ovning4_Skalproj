@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
 {
-    class Queue
+    public class Queue
     {
-        public void TestQueue()
+        public static void TestQueue()
         {
             Queue<string> icaQueue = new Queue<string>();
 
-            var exit = false;
+            bool exit = false;
 
             while (!exit)
             {
@@ -21,17 +21,20 @@ namespace SkalProj_Datastrukturer_Minne
                 + "\nD. Dequeue (pop) customer first in line as thwy have payed and leave queue"
                 + "\nE. Exit and go back to main menu");
 
-                char input = Convert.ToChar(Console.Read());
+                string input = Console.ReadLine();
 
                 switch (input)
                 {
-                    case 'Q':
+                    case "Q":
+                    case "q":
                         NewCustomerLastIn(icaQueue);
                         break;
-                    case 'D':
+                    case "D":
+                    case "d":
                         FirstCustomerLeaves(icaQueue);
                         break;
-                    case 'E':
+                    case "E":
+                    case "e":
                         exit = true;
                         break;
                     default:
@@ -41,31 +44,36 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        public void NewCustomerLastIn(Queue<string> icaQueue)
+        public static void NewCustomerLastIn(Queue<string> icaQueue)
         {
             Console.WriteLine("Name of new customer?");
             string newCustomer = Console.ReadLine();
             icaQueue.Enqueue(newCustomer);
-            Console.Write($"{icaQueue.Count} customers in queue: ");
+            Console.Write($"{icaQueue.Count} customers in queue: \n");
             //icaQueue.ForEach(item => Console.WriteLine(item));
             foreach (var customer in icaQueue)
             {
+                //int queueNumber = customer.ElementAt((customer.Count) - 1);
                 Console.WriteLine(customer);
             }
         }
 
 
-        public void FirstCustomerLeaves(Queue<string> icaQueue)
+        public static void FirstCustomerLeaves(Queue<string> icaQueue)
         {
-            Console.Write($"{icaQueue.Count} customers in queue: ");
+            Console.Write($"{icaQueue.Count} customers in queue: \n");
             //icaQueue.ForEach(item => Console.WriteLine(item));
             foreach (var customer in icaQueue)
             {
                 Console.WriteLine(customer);
             }
+            
             Console.WriteLine("Remove customer first in line (Y/N)?");
+
             string answer = Console.ReadLine();
-            //if(Console.ReadLine = "Y") => icaQueue.Dequeue(); 
+
+            //if (answer = "Y") => icaQueue?.Dequeue() ?? Console.WriteLine("Queue is empty, please add customer(s) first");
+            //else(answer = "N") => break;
         }
     }
 }

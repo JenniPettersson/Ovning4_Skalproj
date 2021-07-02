@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text.RegularExpressions;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -118,7 +118,9 @@ namespace SkalProj_Datastrukturer_Minne
                 "Example7"
             };
 
-            while (true)
+            bool exit = false;
+
+            while (!exit)
             {
                 Console.WriteLine("Please enter data into an existing list. Any other input will retake you back to the main menu"
                 + "\n+. Plus operator in front of input adds it to the list (Example: +Anna)"
@@ -149,7 +151,7 @@ namespace SkalProj_Datastrukturer_Minne
                         RemoveInputFromListAndViewIt(input, ourList);
                         break;
                     default:
-                        Console.WriteLine("Please use only + or -");
+                        exit = true;
                         break;
                 }
             }
@@ -186,10 +188,9 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
 
-            //TestQueue();
+            Queue.TestQueue();
 
         }
-
 
             /// <summary>
             /// Examines the datastructure Stack
@@ -202,26 +203,34 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
 
-            while (true)
+            bool exit = false;
+
+            while (!exit)
             {
-                Console.WriteLine("Please push or pop items to or from the stack, or reverse text"
-                + "\nT. Push an item to the stack"
+                Console.WriteLine("\nT. Push an item to the stack"
                 + "\nF. Pop an item from the stack"
-                + "\nR. Reverse a string");
+                + "\nR. Reverse a string"
+                + "\nE. Exit and go back to main menu");
 
-
-                char input = Convert.ToChar(Console.Read());
+                string input = Console.ReadLine();
 
                 switch (input)
                 {
-                    case 'T':
+                    case "T":
+                    case "t":
                         PushAnItemToTheStack();
                         break;
-                    case 'F':
+                    case "F":
+                    case "f":
                         PopAnItemFromTheStack();
                         break;
-                    case 'R':
+                    case "R":
+                    case "r":
                         ReverseText();
+                        break;
+                    case "E":
+                    case "e":
+                        exit = true;
                         break;
                     default:
                         Console.WriteLine("Please push or pop items");
@@ -244,34 +253,25 @@ namespace SkalProj_Datastrukturer_Minne
 
         private static void ReverseText()
         {
-            Stack theStack = new Stack();
             Console.WriteLine("Enter a string for the stack to reverse");
-            string element = Console.ReadLine();
-            theStack.Push(element);
+            string input = Console.ReadLine();
+            int n = input.Length;
+            Stack theStack = new Stack(n);
 
+            char[] characters = input.ToCharArray();
+
+            int i;
+            for (i = 0; i < n; i++)
+                theStack.Push(characters[i]);
+            
             Console.WriteLine();
 
-            Stack revStack = new Stack();
-
-            while (theStack.Count != 0)
+            Console.WriteLine("\nReversed string: ");
+            foreach (char l in theStack)
             {
-                revStack.Push(theStack.Pop());
-            }
-            Console.WriteLine("Reversed stack: ");
-            foreach (string e in revStack)
-            {
-                Console.Write(e + " ");
-            }
-
-            Console.WriteLine("Current stack: ");
-            foreach (string s in theStack)
-            {
-                Console.Write(s);
+                Console.Write(l);
             }
         }
-
-
-
 
         static void CheckParanthesis()
             {
