@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -185,7 +186,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
 
-            TestQueue();
+            //TestQueue();
 
         }
 
@@ -201,30 +202,76 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
 
-            /*while (true)
+            while (true)
             {
-                Console.WriteLine("Please queu and dequeu people waiting in line at the Ica cash register"
-                + "\nQ. Queue (push) a person last in line"
-                + "\nD. Dequeue (pop) the person first in line when they have payed and leave the queue");
+                Console.WriteLine("Please push or pop items to or from the stack, or reverse text"
+                + "\nT. Push an item to the stack"
+                + "\nF. Pop an item from the stack"
+                + "\nR. Reverse a string");
 
-                string input = Console.ReadLine();
-                char nav = input[0];
 
-                switch (nav)
+                char input = Convert.ToChar(Console.Read());
+
+                switch (input)
                 {
-                    case 'Q':
-                        Method();
+                    case 'T':
+                        PushAnItemToTheStack();
                         break;
-                    case 'D':
-                        Method();
+                    case 'F':
+                        PopAnItemFromTheStack();
+                        break;
+                    case 'R':
+                        ReverseText();
                         break;
                     default:
-                        Console.WriteLine("Please queue or dequeu people");
+                        Console.WriteLine("Please push or pop items");
                         break;
                 }
-            }*/
+            }
 
         }
+
+        private static void PushAnItemToTheStack()
+        {
+            Console.WriteLine("Item is pushed to the stack");
+        }
+
+
+        private static void PopAnItemFromTheStack()
+        {
+            Console.WriteLine("Item is poped from the stack");
+        }
+
+        private static void ReverseText()
+        {
+            Stack theStack = new Stack();
+            Console.WriteLine("Enter a string for the stack to reverse");
+            string element = Console.ReadLine();
+            theStack.Push(element);
+
+            Console.WriteLine();
+
+            Stack revStack = new Stack();
+
+            while (theStack.Count != 0)
+            {
+                revStack.Push(theStack.Pop());
+            }
+            Console.WriteLine("Reversed stack: ");
+            foreach (string e in revStack)
+            {
+                Console.Write(e + " ");
+            }
+
+            Console.WriteLine("Current stack: ");
+            foreach (string s in theStack)
+            {
+                Console.Write(s);
+            }
+        }
+
+
+
 
         static void CheckParanthesis()
             {

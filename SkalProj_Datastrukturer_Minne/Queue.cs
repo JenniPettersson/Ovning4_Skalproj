@@ -66,10 +66,6 @@ namespace SkalProj_Datastrukturer_Minne
             Console.WriteLine("Remove customer first in line (Y/N)?");
             string answer = Console.ReadLine();
             //if(Console.ReadLine = "Y") => icaQueue.Dequeue(); 
-
-
         }
-
-
     }
 }
