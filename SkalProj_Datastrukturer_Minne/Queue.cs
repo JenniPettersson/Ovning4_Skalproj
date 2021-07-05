@@ -38,7 +38,7 @@ namespace SkalProj_Datastrukturer_Minne
                         exit = true;
                         break;
                     default:
-                        Console.WriteLine("\n");
+                        Console.WriteLine("Choose your action in the menu\n");
                         break;
                 }
             }
@@ -53,8 +53,8 @@ namespace SkalProj_Datastrukturer_Minne
             //icaQueue.ForEach(item => Console.WriteLine(item));
             foreach (var customer in icaQueue)
             {
-                //int queueNumber = customer.ElementAt((customer.Count) - 1);
-                Console.WriteLine(customer);
+                int queueNumber = (1 + icaQueue.ToArray().ToList().IndexOf(customer));
+                Console.WriteLine($"Customer number {queueNumber}: {customer}");
             }
         }
 
@@ -65,15 +65,25 @@ namespace SkalProj_Datastrukturer_Minne
             //icaQueue.ForEach(item => Console.WriteLine(item));
             foreach (var customer in icaQueue)
             {
-                Console.WriteLine(customer);
+                int queueNumber = (1 + icaQueue.ToArray().ToList().IndexOf(customer));
+                Console.WriteLine($"Customer number {queueNumber}: {customer}");
             }
-            
-            Console.WriteLine("Remove customer first in line (Y/N)?");
 
-            string answer = Console.ReadLine();
-
-            //if (answer = "Y") => icaQueue?.Dequeue() ?? Console.WriteLine("Queue is empty, please add customer(s) first");
-            //else(answer = "N") => break;
+            if (icaQueue.Count > 0)
+            {
+                icaQueue.Dequeue();
+                Console.Write($"{icaQueue.Count} customers in queue: \n");
+                //icaQueue.ForEach(item => Console.WriteLine(item));
+                foreach (var customer in icaQueue)
+                {
+                    int queueNumber = (1 + icaQueue.ToArray().ToList().IndexOf(customer));
+                    Console.WriteLine($"Customer number {queueNumber}: {customer}");
+                }
+            }
+            else if (icaQueue.Count == 0)
+            {
+                Console.WriteLine("Queue is empty!");
+            }
         }
     }
 }

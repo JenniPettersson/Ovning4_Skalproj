@@ -35,7 +35,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
-                    + "\n4. CheckParanthesis"
+                    + "\n4. Check parantheseses in a code snippet"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -214,15 +214,17 @@ namespace SkalProj_Datastrukturer_Minne
 
                 string input = Console.ReadLine();
 
+                Stack JointStack = new Stack();
+
                 switch (input)
                 {
                     case "T":
                     case "t":
-                        PushAnItemToTheStack();
+                        PushAnItemToTheStack(Stack JointStack);
                         break;
                     case "F":
                     case "f":
-                        PopAnItemFromTheStack();
+                        PopAnItemFromTheStack(Stack JointStack);
                         break;
                     case "R":
                     case "r":
@@ -233,27 +235,53 @@ namespace SkalProj_Datastrukturer_Minne
                         exit = true;
                         break;
                     default:
-                        Console.WriteLine("Please push or pop items");
+                        Console.WriteLine("Please choose an action in the menu");
                         break;
                 }
             }
 
         }
 
-        private static void PushAnItemToTheStack()
+        private static void PushAnItemToTheStack(JointStack)
         {
-            Console.WriteLine("Item is pushed to the stack");
+            Console.WriteLine("Please write a string to add to the stack:");
+            
+            string itemToPush = Console.ReadLine();
+
+           /*jointStack.Push(itemToPush);
+
+           Console.WriteLine("Item is pushed to the stack. It now contains:");
+
+           foreach (char l in jointStack)
+            {
+                Console.Write(l);
+            }
+           */
+
         }
 
 
         private static void PopAnItemFromTheStack()
         {
-            Console.WriteLine("Item is poped from the stack");
+            Console.WriteLine("Please write what you would like to remove from the stack:");
+
+            string removeItem = Console.ReadLine();
+
+            /*jointStack.Push(removeItem);
+
+            Console.WriteLine("Item is popped from the stack. It now contains:");
+
+            foreach (char l in jointStack)
+            {
+                Console.Write(l);
+            }
+            */
+
         }
 
         private static void ReverseText()
         {
-            Console.WriteLine("Enter a string for the stack to reverse");
+            Console.WriteLine("Enter a string for the stack to reverse:");
             string input = Console.ReadLine();
             int n = input.Length;
             Stack theStack = new Stack(n);
@@ -274,15 +302,42 @@ namespace SkalProj_Datastrukturer_Minne
         }
 
         static void CheckParanthesis()
-            {
-                /*
-                 * Use this method to check if the paranthesis in a string is Correct or incorrect.
-                 * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
-                 * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
-                 */
+        {
+            /*
+             * Use this method to check if the paranthesis in a string is Correct or incorrect.
+             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
+             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
+             */
 
+            Console.WriteLine("Please enter your code snippet:");
+            string codeSnippet = Console.ReadLine();
+
+            var chrs = new[] { '{', '(', '[', ']', ')', '}' };
+            var cleanCodeSnippet = string.Concat(codeSnippet.Where(c => chrs.Contains(c)));
+
+            int numberOfCurlyBracketsLeft = cleanCodeSnippet.Count(f => f == '{');
+            int numberOfCurlyBracketsRight = cleanCodeSnippet.Count(f => f == '}');
+            int numberOfParanthesisesLeft = cleanCodeSnippet.Count(f => f == '(');
+            int numberOfParanthesisesRight = cleanCodeSnippet.Count(f => f == ')');
+            int numberOfBracketsLeft = cleanCodeSnippet.Count(f => f == '[');
+            int numberOfBracketsRight = cleanCodeSnippet.Count(f => f == ']');
+
+            if (numberOfCurlyBracketsLeft != numberOfCurlyBracketsRight || numberOfParanthesisesLeft != numberOfParanthesisesRight || numberOfBracketsLeft != numberOfBracketsRight)
+            {
+                Console.WriteLine("Unfortunately your number of parantheseses does not match, your code snippet is not correct");
             }
 
+            else
+            {
+                char[] characters = codeSnippet.ToCharArray();
+                int n = characters.Length;
+                Stack codeStack = new Stack(n);
+
+                //Add characthers if they are {, ( or [ until you reach the first ], ] or }
+                //Then pop a character from the stack and compare if it is the same but the other direction. If it isn't -> comparison over, output to user that code snippet is not correct. If it is, continue with next character
+                //If it is {, ( or [ -> push to stack. If it is ], ] or }, pop character from stack and compare again. Continue until stack is empty -> comparison over, output to user that code snippet is correct
+            }
+        }
         }
     }
 
